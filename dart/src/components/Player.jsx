@@ -1,8 +1,7 @@
 import { useState } from "react";
-export default function Player({ scoredPoints }) {
-  const [playername, setPlayername] = useState("Player 1");
+export default function Player({ points, isActive, legs, sets }) {
+  const [playername, setPlayername] = useState("Player");
   const [isChanging, setIsChanging] = useState(false);
-  const [points, setPoints] = useState(501);
   function changePlayerName(value) {
     setPlayername(value);
   }
@@ -11,8 +10,16 @@ export default function Player({ scoredPoints }) {
   }
   return (
     <>
-      <div className="flex flex-col items-center mt-8 md:mb-16 bg-slate-500 p-8 rounded-md">
-        <section className=" font-bold text-xl mb-8">{points}</section>
+      <div
+        className={`flex flex-col items-center mt-8 md:mb-16 rounded-md transition-colors duration-1000 ${
+          isActive ? " bg-green-400 p-8" : "bg-red-400 p-8"
+        }`}
+      >
+        <section className=" font-bold text-xl">
+          S: {sets} L: {legs}
+        </section>
+        <section className=" font-bold text-xl">Pts: {points}</section>
+
         <input
           type="text"
           onChange={(event) => changePlayerName(event.target.value)}
