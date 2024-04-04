@@ -14,6 +14,7 @@ function App() {
   const [player1Sets, setPlayer1Sets] = useState(0);
   const [player2Sets, setPlayer2Sets] = useState(0);
   const [legStartPlayer, setLegStartPlayer] = useState(1);
+  const [setStartPlayer, setSetStartPlayer] = useState(1);
 
   function handleMoves(points, noDarts) {
     let newNoMoves = noMoves;
@@ -48,42 +49,72 @@ function App() {
     setPlayer1Legs(player1Legs + 1);
     setPlayer1Score(501);
     setPlayer2Score(501);
+    if (legStartPlayer === 1) {
+      setActivePlayer(2);
+      setLegStartPlayer(2);
+    } else {
+      setActivePlayer(1);
+      setLegStartPlayer(1);
+    }
   }
   if (player2Score === 0) {
     setPlayer2Legs(player2Legs + 1);
     setPlayer1Score(501);
     setPlayer2Score(501);
+    if (legStartPlayer === 1) {
+      setActivePlayer(2);
+      setLegStartPlayer(2);
+    } else {
+      setActivePlayer(1);
+      setLegStartPlayer(1);
+    }
   }
   if (player1Legs === 3) {
     setPlayer1Sets(player1Sets + 1);
     setPlayer1Legs(0);
     setPlayer2Legs(0);
+    if (setStartPlayer === 1) {
+      setActivePlayer(2);
+      setSetStartPlayer(2);
+    } else {
+      setActivePlayer(1);
+      setSetStartPlayer(1);
+    }
   }
   if (player2Legs === 3) {
     setPlayer2Sets(player2Sets + 1);
     setPlayer1Legs(0);
     setPlayer2Legs(0);
+    if (setStartPlayer === 1) {
+      setActivePlayer(2);
+      setSetStartPlayer(2);
+    } else {
+      setActivePlayer(1);
+      setSetStartPlayer(1);
+    }
   }
 
   //console.log(noMoves);
   //console.log(activePlayer + "is active");
   return (
     <>
-      <div className="flex justify-around w-full flex-col sm:flex-row">
-        <Player
-          sets={player1Sets}
-          legs={player1Legs}
-          points={player1Score}
-          isActive={activePlayer === 1}
-        />
-        <Player
-          sets={player2Sets}
-          legs={player2Legs}
-          points={player2Score}
-          isActive={activePlayer === 2}
-        />
+      <div className="bg-gray-300 p-4 rounded">
+        <div className="flex justify-around w-full flex-col sm:flex-row">
+          <Player
+            sets={player1Sets}
+            legs={player1Legs}
+            points={player1Score}
+            isActive={activePlayer === 1}
+          />
+          <Player
+            sets={player2Sets}
+            legs={player2Legs}
+            points={player2Score}
+            isActive={activePlayer === 2}
+          />
+        </div>
+        <Game onMovesChange={handleMoves} />
       </div>
-      <Game onMovesChange={handleMoves} />
     </>
   );
 }

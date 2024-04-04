@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 * {
-    box-sizing: border-box;
-  }
-  body {
-    font-family: 'Nunito', sans-serif;
-    background-color: #b8b8b8;
-  }
+  box-sizing: border-box;
+}
+body {
+  font-family: "Nunito", sans-serif;
+  background-color: #b8b8b8;
+}
