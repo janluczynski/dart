@@ -12,7 +12,7 @@ export default function Player({ points, isActive, legs, sets }) {
     <>
       <div
         className={`flex flex-col items-center mt-8 md:mb-16 rounded-md transition-colors duration-1000 ${
-          isActive ? " bg-green-400 p-8" : "bg-red-400 p-8"
+          isActive ? "bg-green-400 ring-2 ring-green-500 p-8" : "bg-red-400 p-8"
         }`}
       >
         <section className=" font-bold text-xl">
