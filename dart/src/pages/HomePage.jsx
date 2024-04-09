@@ -31,7 +31,7 @@ function App() {
             isActive={activePlayer === 2}
           />
         </div>
-        <Game onMovesChange={handleMoves} />
+        <Game onMovesChange={handleMoves} activePlayer={activePlayer} />
       </div>
     </>
   );
