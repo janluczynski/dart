@@ -1,5 +1,5 @@
 import points from "../points";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Game({ onMovesChange, activePlayer }) {
   const [multiplier, setMultiplier] = useState(1);
   const [dartsThrown, setDartsThrown] = useState(0);
@@ -16,6 +16,9 @@ export default function Game({ onMovesChange, activePlayer }) {
     }
     setMultiplier(value);
   };
+  useEffect(() => {
+    setDartsThrown(0);
+  }, [activePlayer]);
   const handleScore = (point) => {
     if (activePlayer === 1) {
       const newScoreArray = [...scoreArrayPlayer1];
@@ -27,12 +30,12 @@ export default function Game({ onMovesChange, activePlayer }) {
       newScoreArray[dartsThrown] = point * multiplier;
       setScoreArrayPlayer2(newScoreArray);
     }
-    onMovesChange(point * multiplier, 1);
+    onMovesChange(point * multiplier, 1, multiplier);
     setMultiplier(1);
     setDartsThrown(dartsThrown + 1);
   };
   const handleScoreFromInput = (point) => {
-    onMovesChange(point, 3);
+    onMovesChange(point, 3, 2);
     setMultiplier(1);
   };
   if (dartsThrown === 3) {
@@ -41,7 +44,7 @@ export default function Game({ onMovesChange, activePlayer }) {
   return (
     <div className="flex flex-wrap justify-center">
       <div>
-        <div className="flex flex-wrap justify-center">
+        <div className="flex flex-wrap justify-around px-40">
           <div className="flex space-x-2 justify-center items-center m-2">
             {scoreArrayPlayer1.map((_, index) => (
               <div
@@ -92,17 +95,20 @@ export default function Game({ onMovesChange, activePlayer }) {
             ))}
           </div>
         </div>
-        {points.map((point) => {
-          return (
-            <button
-              onClick={() => handleScore(point)}
-              key={point}
-              className="text-black p-2 rounded-md transition-colors duration-200 m-1 w-20 text-center bg-slate-600 hover:bg-slate-800"
-            >
-              {point}
-            </button>
-          );
-        })}
+        <div className="flex flex-wrap justify-center">
+          {points.map((point) => {
+            return (
+              <button
+                disabled={point === 25 && multiplier === 3}
+                onClick={() => handleScore(point)}
+                key={point}
+                className="text-black p-2 rounded-md transition-colors duration-200 m-1 w-10 sm:w-20 text-center bg-slate-600 hover:bg-slate-800"
+              >
+                {point}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       <button

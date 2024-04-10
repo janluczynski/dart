@@ -12,7 +12,7 @@ export default function useGameLogic() {
   const [legStartPlayer, setLegStartPlayer] = useState(1);
   const [setStartPlayer, setSetStartPlayer] = useState(1);
 
-  function handleMoves(points, noDarts) {
+  function handleMoves(points, noDarts, multiplier) {
     let newNoMoves = noMoves;
     if (noDarts === 1) {
       newNoMoves = noMoves + 1;
@@ -27,9 +27,19 @@ export default function useGameLogic() {
         setNoMoves(0);
         return;
       }
+      if (player1Score - points === 0 && multiplier !== 2) {
+        setActivePlayer(activePlayer === 1 ? 2 : 1);
+        setNoMoves(0);
+        return;
+      }
       setPlayer1Score(player1Score - points);
     } else {
       if (player2Score - points < 0 || player2Score - points === 1) {
+        setActivePlayer(activePlayer === 1 ? 2 : 1);
+        setNoMoves(0);
+        return;
+      }
+      if (player2Score - points === 0 && multiplier !== 2) {
         setActivePlayer(activePlayer === 1 ? 2 : 1);
         setNoMoves(0);
         return;
