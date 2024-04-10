@@ -1,12 +1,13 @@
 import HomePage from "./pages/HomePage";
+import RootLayout from "./pages/Root";
+import AboutPage from "./pages/About";
+import ErrorPage from "./pages/ErrorPage";
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   Link,
 } from "react-router-dom";
-import RootLayout from "./pages/Root";
-import AboutPage from "./pages/About";
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +17,7 @@ function App() {
       children: [
         { path: "/", element: <HomePage /> },
         { path: "/about", element: <AboutPage /> },
+        { path: "*", element: <ErrorPage /> },
       ],
     },
   ]);
